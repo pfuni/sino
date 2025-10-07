@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<script type="text/javascript" src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miłej nauki skarbie</title>
@@ -12,17 +12,21 @@
 </head>
 <body>
 
-    <div id="background-mountains"></div> <div id="hanzi-learning-ui">
+    <div id="background-mountains"></div> 
+    <div id="hanzi-learning-ui">
         
         <div class="header-controls">
             <h1>Kocham Cię</h1>
+            <button id="mode-toggle-btn" class="main-action-button" style="width: auto; margin-left: 20px;">
+                Aktualny Tryb: Znak
+            </button>
         </div>
 
         <div class="main-content-area">
             
             <div class="input-section">
                 <h3 class="section-title">1. Wprowadzanie Pinyin</h3>
-                <p class="section-desc">Wpisz sylabę, wybierz znak (1-9). Cofnij: BACKSPACE.</p>
+                <p class="section-desc" id="input-desc-text">Wpisz sylabę, wybierz znak (1-9). Cofnij: **BACKSPACE**.</p>
                 
                 <div style="position: relative; margin-bottom: 10px;">
                     <div id="pinyin-display-wrapper" class="input-group">
@@ -57,7 +61,7 @@
                 
                 <div id="animation-container-wrapper" class="animation-wrapper">
                     <div id="animation-container">
-                    </div>
+                        </div>
                 </div>
             </div>
 
