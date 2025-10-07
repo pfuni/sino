@@ -10,7 +10,7 @@
     --border-color: #333333;
 }
 
-/* --- ANIMACJE TŁA (GÓRY - TERAZ TYLKO JEDNA WARSTWA) --- */
+/* --- ANIMACJE TŁA (GÓRY - Z PARALAKSĄ I BLUREM) --- */
 @keyframes mountain-drift { 
     0% { background-position: 50% 50%; background-size: 130vw 130vh; }
     50% { background-position: 52% 48%; background-size: 135vw 135vh; }
@@ -28,7 +28,7 @@ body {
     cursor: url("https://i.postimg.cc/wxcSjYcJ/cursor.png") 16 16, default !important;
 }
 
-/* TŁO GÓR - TYLKO JEDNA WARSTWA Z BLUREM */
+/* TŁO GÓR - JEDNA WARSTWA Z BLUREM */
 #background-mountains { 
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.15; 
     will-change: background-position, background-size;
@@ -36,11 +36,10 @@ body {
     background-repeat: no-repeat; background-size: 130vw 130vh; background-position: 50% 50%; 
     z-index: -1; 
     animation: mountain-drift 180s ease-in-out infinite;
-    /* DODANO BLUR */
-    filter: blur(2px); 
+    filter: blur(2px); /* Lekkie rozmycie */
 }
 
-/* --- INTERFEJS GŁÓWNY (NISKI Z-INDEX) --- */
+/* --- INTERFEJS GŁÓWNY --- */
 
 #hanzi-learning-ui {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 30px; box-sizing: border-box; 
@@ -134,26 +133,36 @@ body {
     z-index: 100; 
 }
 
-/* --- ANIMACJA KRESEK I KAFIZELEK --- */
+/* --- ANIMACJA KRESEK I KAFIZELEK (Dla Masonry) --- */
 #animation-container {
-    display: flex; flex-wrap: wrap; justify-content: center; align-content: flex-start;
+    position: relative; 
+    justify-content: center; 
+    align-content: flex-start;
     height: 100%; 
     overflow-y: auto; 
-    position: relative; 
+    width: 100%; 
 }
 
 #animation-container > div {
-     flex-shrink: 0;
-     border: 1px solid var(--border-color);
-     border-radius: 6px;
-     margin: 8px; 
-     box-shadow: 0 0 5px rgba(0,0,0,0.5);
-     transition: box-shadow 0.2s, border-color 0.2s; 
-     transform-origin: center center;
-     z-index: 1; 
+    /* Ustawienie szerokości/rozmiaru kafelka jako stała baza dla Masonry */
+    width: 160px; 
+    height: 160px;
+    
+    flex-shrink: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    margin: 8px; 
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    transition: box-shadow 0.2s, border-color 0.2s; 
+    transform-origin: center center;
+    z-index: 1; 
 }
 
 #animation-container > div:hover {
      box-shadow: 0 0 12px var(--accent-color), inset 0 0 6px rgba(255,105,180,0.5);
      border-color: var(--accent-color);
+}
+/* Wymagany element dla Masonry do obliczenia kolumn */
+.grid-sizer {
+    width: 160px; 
 }
