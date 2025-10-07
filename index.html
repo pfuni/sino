@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<script type="text/javascript" src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miłej nauki skarbie</title>
+    
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+</head>
+<body>
+
+    <div id="background-mountains"></div> <div id="hanzi-learning-ui">
+        
+        <div class="header-controls">
+            <h1>Kocham Cię</h1>
+        </div>
+
+        <div class="main-content-area">
+            
+            <div class="input-section">
+                <h3 class="section-title">1. Wprowadzanie Pinyin</h3>
+                <p class="section-desc">Wpisz sylabę, wybierz znak (1-9). Cofnij: BACKSPACE.</p>
+                
+                <div style="position: relative; margin-bottom: 10px;">
+                    <div id="pinyin-display-wrapper" class="input-group">
+                        <span id="pinyin-prefix"></span>
+                        <input type="text" id="pinyin-input" placeholder="Wpisz sylabę (np. ni hao)" autocomplete="off">
+                    </div>
+    
+                    <button id="search-btn" class="main-action-button">ZAKOŃCZ CIĄG / RESET</button>
+    
+                    <div id="suggestions-dropdown" class="suggestions-dropdown">
+                    </div>
+                </div>
+
+                <hr class="separator">
+
+                <p id="loading-status" class="loading-message">Ładowanie słowników...</p>
+                <div id="status-message" class="status-message"></div>
+            </div>
+
+
+            <div class="output-section">
+                <h3 class="section-title">2. Wynik i Nauka</h3>
+
+                <div class="output-header">
+                    <h4 class="output-label">Finalny Wynik:</h4>
+                    <div id="pinyin-output" class="pinyin-output"></div>
+                </div>
+
+                <div id="hanzi-output" class="hanzi-output" title="Kliknij, aby skopiować znaki do schowka">?</div>
+
+                <h4 class="animation-label">Animacja Kresek (PPM: Resetuj animację.)</h4>
+                
+                <div id="animation-container-wrapper" class="animation-wrapper">
+                    <div id="animation-container">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script defer src="script.js"></script>
+</body>
+</html>
