@@ -1,73 +1,75 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-</script>
+<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/apexcharts@3.40.0/dist/apexcharts.min.js"></script>
+<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.40.0/dist/apexcharts.min.css"/>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miłej nauki skarbie</title>
-    
-    <link rel="stylesheet" href="style.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+    <title>Miłej nauki kochanie</title>
+    <link rel="stylesheet" href="style.css"> 
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@2.2/dist/hanzi-writer.min.js"></script>
 </head>
 <body>
-
     <div id="background-mountains"></div> 
-    <div id="hanzi-learning-ui">
+    
+    <div id="app-container">
+        <h1>Kocham Cię</h1>
         
-        <div class="header-controls">
-            <h1>Kocham Cię</h1>
-            <button id="mode-toggle-btn" class="main-action-button" style="width: auto; margin-left: 20px;">
-                Aktualny Tryb: Znak
-            </button>
-        </div>
-
-        <div class="main-content-area">
+        <div class="controls" style="margin-bottom: 20px;">
+            <button id="dark-mode-toggle" class="control-btn" style="background-color: #444;">Tryb Jasny</button>
             
-            <div class="input-section">
-                <h3 class="section-title">1. Wprowadzanie Pinyin</h3>
-                <p class="section-desc" id="input-desc-text">Wpisz sylabę, wybierz znak (1-9). Cofnij: **BACKSPACE**.</p>
-                
-                <div style="position: relative; margin-bottom: 10px;">
-                    <div id="pinyin-display-wrapper" class="input-group">
-                        <span id="pinyin-prefix"></span>
-                        <input type="text" id="pinyin-input" placeholder="Wpisz sylabę (np. ni hao)" autocomplete="off">
-                    </div>
-    
-                    <button id="search-btn" class="main-action-button">ZAKOŃCZ CIĄG / RESET</button>
-    
-                    <div id="suggestions-dropdown" class="suggestions-dropdown">
-                    </div>
-                </div>
-
-                <hr class="separator">
-
-                <p id="loading-status" class="loading-message">Ładowanie słowników...</p>
-                <div id="status-message" class="status-message"></div>
+            <div id="mode-selector-group" class="mode-group">
+                <button id="mode-char-btn" class="control-btn mode-btn active">Tryb Znak</button>
+                <button id="mode-word-btn" class="control-btn mode-btn">Tryb Słowo</button>
             </div>
-
-
-            <div class="output-section">
-                <h3 class="section-title">2. Wynik i Nauka</h3>
-
-                <div class="output-header">
-                    <h4 class="output-label">Finalny Wynik:</h4>
-                    <div id="pinyin-output" class="pinyin-output"></div>
-                </div>
-
-                <div id="hanzi-output" class="hanzi-output" title="Kliknij, aby skopiować znaki do schowka">?</div>
-
-                <h4 class="animation-label">Animacja Kresek (PPM: Resetuj animację.)</h4>
-                
-                <div id="animation-container-wrapper" class="animation-wrapper">
-                    <div id="animation-container">
-                        </div>
-                </div>
-            </div>
-
         </div>
+
+        <hr style="margin-top: 20px;">
+
+        <h2>1. Wprowadzanie Pinyin</h2>
+
+        <p id="input-desc-text">Wpisz sylabę. Znak pojawi się automatycznie po dodaniu **cyfry tonu** (1-5).</p>
+
+        <div id="input-section">
+            <div id="pinyin-display-wrapper">
+                <div id="input-wrapper">
+                    <span id="pinyin-prefix"></span>
+                    <input type="text" id="pinyin-input" placeholder="Wpisz sylabę (np. ni)" autofocus>
+                </div>
+            </div>
+
+            <div id="suggestions-dropdown">
+                </div>
+            
+            <p id="loading-status" style="margin: 5px 0 15px 0;">Ładowanie słowników, proszę czekać...</p>
+        </div>
+
+        <div class="controls">
+            <button id="search-btn" class="control-btn">ZAKOŃCZ CIĄG / ZATWIERDŹ</button>
+        </div>
+        
+        <p id="status-message"></p>
+
+        <hr>
+
+        <h2>2. Wynik i Nauka</h2>
+
+        <p>Kliknij na Hanzi, aby skopiować. Kliknij prawym przyciskiem myszy na klatce, aby ponownie uruchomić animację.</p>
+
+        <div id="output-section">
+            <div id="hanzi-output">?</div>
+            <div id="pinyin-output"></div>
+        </div>
+
+        <h3>Animacja Kresek (PPM: Resetuj animację.)</h3>
+        
+        <div id="animation-container">
+            </div>
+
     </div>
 
-    <script defer src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
