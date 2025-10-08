@@ -1,168 +1,237 @@
+/* Definicje kolorów dla trybu jasnego (domyślne) */
 :root {
-    /* Definicje kolorów (Dark Mode Pro) */
-    --primary-color: #e0e0e0; 
-    --secondary-text-color: #a0a0a0; 
-    --background-color: #1a1a1a; 
-    --card-color: #242424; 
-    --accent-color: #ff69b4; 
-    --success-color: #2ecc71;
-    --error-color: #e74c3c;
-    --border-color: #333333;
+    /* Kolory podstawowe */
+    --background-color: #f7f7f7;
+    --text-color: #333;
+    --secondary-text-color: #6a6a6a;
+    --input-bg-color: #ffffff;
+    --border-color: #e0e0e0;
+    --shadow-color: rgba(0, 0, 0, 0.087);
+
+    /* Kolory akcentów (dynamicznie zmieniane przez JS) */
+    --accent-color: #ff66a4; 
+    --word-mode-color: #cc0000;
+    --success-color: #4CAF50;
+    --error-color: #f44336;
 }
 
-/* --- ANIMACJE TŁA (GÓRY - Z PARALAKSĄ I BLUREM) --- */
-@keyframes mountain-drift { 
-    0% { background-position: 50% 50%; background-size: 130vw 130vh; }
-    50% { background-position: 52% 48%; background-size: 135vw 135vh; }
-    100% { background-position: 50% 50%; background-size: 130vw 130vh; }
+/* 🌙 TRYB CIEMNY: Zmiana kolorów */
+.dark-mode {
+    --background-color: #121212;
+    --text-color: #e0e0e0;
+    --secondary-text-color: #a0a0a0;
+    --input-bg-color: #1e1e1e;
+    --border-color: #383838;
+    --shadow-color: rgba(255, 255, 255, 0); 
 }
 
 body {
-    background-color: var(--background-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color); 
+    color: var(--text-color);
     margin: 0;
-    padding: 0;
-    height: 100vh; 
-    overflow: hidden; 
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    color: var(--primary-color);
-    cursor: url("https://i.postimg.cc/wxcSjYcJ/cursor.png") 16 16, default !important;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    box-sizing: border-box;
+    transition: background-color 0.3s;
 }
 
-/* TŁO GÓR - JEDNA WARSTWA Z BLUREM */
-#background-mountains { 
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.15; 
-    will-change: background-position, background-size;
-    background-image: url("https://i.postimg.cc/YqGkqq8Y/image.png"); /* Twój podany obraz */
-    background-repeat: no-repeat; background-size: 130vw 130vh; background-position: 50% 50%; 
-    z-index: -1; 
-    animation: mountain-drift 180s ease-in-out infinite;
-    filter: blur(2px); /* Lekkie rozmycie */
-}
-
-/* --- INTERFEJS GŁÓWNY --- */
-
-#hanzi-learning-ui {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 30px; box-sizing: border-box; 
-    display: flex; flex-direction: column; overflow-y: auto; 
-    z-index: 10; 
-}
-
-.header-controls {
-    display: flex; align-items: center; padding-bottom: 20px; margin-bottom: 20px; border-bottom: 2px solid var(--accent-color);
+#app-container {
+    width: 100%;
+    max-width: 900px;
+    background: var(--input-bg-color);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px var(--shadow-color);
     z-index: 10;
 }
-.header-controls h1 { margin: 0; font-size: 28px; font-weight: 300; }
-.main-content-area { flex-grow: 1; display: flex; gap: 30px; min-height: 0; }
 
-.input-section, .output-section {
-    display: flex; flex-direction: column; background-color: var(--card-color); border-radius: 10px;
-    padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); overflow: hidden; 
-    z-index: 10;
-}
-.input-section { flex-basis: 40%; min-width: 350px; }
-.output-section { flex-basis: 60%; }
-.section-title { margin-top: 0; font-weight: 400; color: var(--primary-color); }
-.section-desc { font-size: 13px; margin: 0 0 15px; color: var(--secondary-text-color); }
-.separator { border: 0; height: 1px; background-color: var(--border-color); margin: 20px 0; }
-.loading-message { font-size: 14px; margin: 10px 0 15px; font-weight: 500; }
-.status-message { font-size: 14px; margin-bottom: 15px; }
-.main-action-button {
-    cursor: url("https://i.postimg.cc/wxcSjYcJ/cursor.png") 16 16, pointer; 
-    padding: 12px 20px; background-color: var(--accent-color); color: var(--card-color); 
-    font-size: 16px; font-weight: bold; border: none; border-radius: 8px;
-    transition: background-color 0.1s, transform 0.1s; box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-    margin-top: 10px; width: 100%;
-}
-.main-action-button:hover { background-color: #ff85c1; transform: translateY(-1px); }
-
-/* --- WPROWADZANIE PINYIN --- */
-.input-group {
-    border: 1px solid var(--border-color);
-    border-radius: 8px; 
-    padding: 12px 15px; 
-    background-color: var(--background-color);
-    transition: border-color 0.1s, box-shadow 0.5s;
-    margin-bottom: 15px;
-    cursor: text; 
-    display: flex; 
+/* Sekcja Wejścia i Kontrole */
+.controls {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    z-index: 10;
+    gap: 10px;
+    flex-wrap: wrap; 
 }
-.input-group:focus-within {
-     border-color: var(--accent-color);
-     box-shadow: 0 0 5px var(--accent-color); 
+
+.control-btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.2s, transform 0.1s;
 }
-#pinyin-input {
-    font-size: 20px !important; color: var(--primary-color); caret-color: var(--accent-color); 
-    border: none; padding: 0; margin: 0; background: transparent; outline: none; flex-grow: 1; min-width: 50px;
+
+#dark-mode-toggle {
+    color: white;
+    background-color: #444;
 }
+
+#dark-mode-toggle:hover {
+    background-color: #555;
+}
+
+/* Grupa przycisków wyboru trybu */
+#mode-selector-group {
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden; 
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.mode-btn {
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--text-color);
+    background-color: var(--input-bg-color);
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    flex: 1;
+    margin: 0;
+    min-width: 120px;
+}
+
+.mode-btn.active {
+    background-color: var(--accent-color); 
+    color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .mode-btn {
+    background-color: var(--input-bg-color);
+    color: var(--secondary-text-color);
+}
+
+.dark-mode .mode-btn.active {
+    color: white;
+}
+
+
+/* Pole wejścia pinyin */
+#input-wrapper {
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    padding: 10px 15px;
+    transition: border-color 0.3s;
+    min-height: 48px; 
+}
+
+#input-wrapper:focus-within {
+    border-color: var(--accent-color);
+}
+
 #pinyin-prefix {
-    font-size: 20px !important; font-weight: 300; color: var(--secondary-text-color); margin-right: 5px;
+    color: var(--secondary-text-color);
+    font-size: 1.2em;
+    white-space: pre; 
 }
 
-/* LISTA SUGEROWANYCH ZNAKÓW */
-.suggestions-dropdown {
-    position: absolute; top: 100%; left: 0; right: 0; border: 1px solid var(--border-color); border-top: none; 
-    z-index: 50; 
-    max-height: 250px; overflow-y: auto; display: none; border-radius: 0 0 8px 8px;
-    background: var(--background-color); box-shadow: 0 8px 20px rgba(0,0,0,0.9);
+#pinyin-input {
+    border: none;
+    outline: none;
+    font-size: 1.2em;
+    font-weight: 500;
+    background: transparent;
+    padding: 0;
+    margin-left: 5px;
+    min-width: 20px; 
+    transition: width 0.3s;
+    color: var(--text-color); 
 }
+
+#search-btn {
+    background-color: var(--accent-color);
+    color: white;
+    flex-grow: 1;
+}
+
+#search-btn:hover {
+    filter: brightness(1.1);
+}
+
+/* Sekcja Wyniku */
+#output-section {
+    margin-top: 30px;
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+#hanzi-output {
+    font-size: 4em;
+    font-weight: 700;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+#hanzi-output:hover {
+    color: var(--accent-color);
+}
+
+#pinyin-output {
+    font-size: 1.2em;
+    color: var(--secondary-text-color);
+    margin-top: -10px;
+    font-style: italic;
+}
+
+/* Sugestie */
+#suggestions-dropdown {
+    position: relative;
+    top: 5px;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--input-bg-color);
+    box-shadow: 0 4px 12px var(--shadow-color);
+    margin-top: 10px;
+    display: none;
+    z-index: 20;
+}
+
 .suggestion-item {
-     font-size: 16px; padding: 10px 15px; border-bottom: 1px solid var(--border-color); cursor: pointer; transition: background-color 0.1s;
-}
-.suggestion-item:last-child { border-bottom: none; }
-.suggestion-item:hover { background-color: #333333 !important; }
-
-/* WYNIK I ANIMACJA */
-.output-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 5px; }
-.output-label { color: var(--primary-color); font-weight: 300; margin: 0; font-size: 18px; }
-.pinyin-output { font-size: 24px; font-weight: 500; color: var(--secondary-text-color); }
-.hanzi-output {
-    font-size: 88px; font-weight: 700; min-height: 100px; margin: 10px 0 20px; color: var(--primary-color);
-    text-shadow: 0 0 10px rgba(255,255,255,0.1); display: flex; justify-content: center; align-items: center;
-    cursor: pointer; transition: color 0.1s; line-height: 1;
-}
-.hanzi-output:hover { color: var(--accent-color); }
-.animation-label {
-    color: var(--primary-color); font-weight: 300; border-top: 1px solid var(--border-color); 
-    padding-top: 15px; margin-top: 15px;
-}
-.animation-wrapper {
-    flex-grow: 1; min-height: 30vh; background-color: var(--background-color); border-radius: 8px;
-    padding: 10px; border: 1px solid var(--border-color); margin-top: 15px;
-    z-index: 100; 
+    padding: 8px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 1.1em;
+    color: var(--text-color);
 }
 
-/* --- ANIMACJA KRESEK I KAFIZELEK (Dla Masonry) --- */
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+
+.dark-mode .suggestion-item:hover {
+    background-color: #333;
+}
+
+/* Animacja i HanziWriter */
 #animation-container {
-    position: relative; 
-    justify-content: center; 
-    align-content: flex-start;
-    height: 100%; 
-    overflow-y: auto; 
-    width: 100%; 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center;
+    margin-top: 20px;
+    padding: 10px 0;
+    min-height: 100px;
 }
 
 #animation-container > div {
-    /* Ustawienie szerokości/rozmiaru kafelka jako stała baza dla Masonry */
-    width: 160px; 
-    height: 160px;
-    
     flex-shrink: 0;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    margin: 8px; 
-    box-shadow: 0 0 5px rgba(0,0,0,0.5);
-    transition: box-shadow 0.2s, border-color 0.2s; 
-    transform-origin: center center;
-    z-index: 1; 
-}
-
-#animation-container > div:hover {
-     box-shadow: 0 0 12px var(--accent-color), inset 0 0 6px rgba(255,105,180,0.5);
-     border-color: var(--accent-color);
-}
-/* Wymagany element dla Masonry do obliczenia kolumn */
-.grid-sizer {
-    width: 160px; 
 }
